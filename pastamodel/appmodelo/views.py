@@ -18,6 +18,7 @@ def listar_clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'listar_clientes.html', {'clientes': clientes})
 
+
 def cadastrar_produto(request):
     if request.method == 'POST':
         form = ProdutoForm(request.POST)
