@@ -1,22 +1,33 @@
-from django.shortcuts import render
-from appmodelo.models import Cliente
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
- 
+# views.py
 
-def index(request):
-    lista_itens = Cliente.objects.all()
-    return render(request, 'appmodelo/index.html', {'cliente':lista_itens})
+from django.shortcuts import render, redirect
+from .forms import ClienteForm, ProdutoForm
+from .models import Cliente, Produto
 
-
-  
+def cadastrar_cliente(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        idade = request.POST.get('idade')
-        email = request.POST.get('email')
-        telefone = request.POST.get('telefone')
-        endereco = request.POST.get('endereco')
+        form = ClienteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_clientes')
+    else:
+        form = ClienteForm()
+    return render(request, 'cadastrar_cliente.html', {'form': form})
 
+def listar_clientes(request):
+    clientes = Cliente.objects.all()
+    return render(request, 'listar_clientes.html', {'clientes': clientes})
 
+def cadastrar_produto(request):
+    if request.method == 'POST':
+        form = ProdutoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_produtos')
+    else:
+        form = ProdutoForm()
+    return render(request, 'cadastrar_produto.html', {'form': form})
 
-
+def listar_produtos(request):
+    produtos = Produto.objects.all()
+    return render(request, 'listar_produtos.html', {'produtos': produtos})
