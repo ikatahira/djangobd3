@@ -31,3 +31,10 @@ def cadastrar_produto(request):
 def listar_produtos(request):
     produtos = Produto.objects.all()
     return render(request, 'listar_produtos.html', {'produtos': produtos})
+
+from django.http import HttpResponse
+
+
+
+def pagina_inicial(request):
+    return render(request, 'appmodelo/pagina_inicial.html')
