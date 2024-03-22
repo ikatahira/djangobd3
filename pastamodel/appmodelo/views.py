@@ -9,7 +9,7 @@ def cadastrar_cliente(request):
         form = ClienteForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('lista_clientes')
+            return redirect('listar_clientes')
     else:
         form = ClienteForm()
     return render(request, 'cadastrar_cliente.html', {'form': form})
@@ -24,7 +24,7 @@ def cadastrar_produto(request):
         form = ProdutoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('lista_produtos')
+            return redirect('listar_produtos')
     else:
         form = ProdutoForm()
     return render(request, 'cadastrar_produto.html', {'form': form})
